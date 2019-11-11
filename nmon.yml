@@ -1,0 +1,24 @@
+---
+
+- name: install and configure nmon
+  gather_facts: false
+  hosts: all
+  tasks:
+
+    - name: Install nmon from repo
+      zypper:
+        name: nmon
+        state: present
+        update_cache: yes
+
+    - name: Creates /var/nmon directory
+      file:
+        path: /var/nmon
+        state: directory
+
+    - name: Ensure a job that runs at 2 and 5 exists. Creates an entry like "0 5,2 * * ls -alh > /dev/null"
+      cron:
+        name: "ejecutar nmon"
+        minute: "0"
+        hour: "0"
+        job: "/usr/bin/nmon -ft  -s 60 -c 1440 -m /var/nmon"
