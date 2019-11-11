@@ -16,7 +16,7 @@
         path: /var/nmon
         state: directory
 
-    - name: Ensure a job that runs at 2 and 5 exists. Creates an entry like "0 5,2 * * ls -alh > /dev/null"
+    - name: Ensure a job that runs at 00:00 (midnight) exists
       cron:
         name: "ejecutar nmon"
         minute: "0"
